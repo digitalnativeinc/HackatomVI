@@ -1,29 +1,33 @@
+<!-- markdown-link-check-disable-next-line -->
+[![codecov](https://codecov.io/gh/tendermint/liquidity/branch/develop/graph/badge.svg)](https://codecov.io/gh/tendermint/liquidity?branch=develop)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/tendermint/liquidity)](https://pkg.go.dev/github.com/tendermint/liquidity)
 
+# Liquidity Module
 
-# Lending Module
+The liquidity module serves Automated Market Maker (AMM)-style decentralized liquidity by providing liquidity activities and coin swap functions.
 
-The lending module gets price from automated market maker and operates lending/borrowing protocol.
+The module enables users to create a liquidity pool, make deposits and withdrawals, and request coin swaps from the liquidity pool.
 
-Interest rate models is simple; it just has flat fee that can be configured.
+This module can be used in the [Cosmos Hub](https://hub.cosmos.network/main/hub-overview/overview.html) and any other [Cosmos SDK](https://cosmos.network/)-based blockchain projects.
 
-Lenders deposit their assets and get share of the pool which is proportionate to the total value locked.
-
-Borrowers borrow the assets with collaterals and gets liquidated once minimum collaterization ratio does not fit.
-
-Current implementation tests lending/borrowing pool between UST/ATOM.
+- The Cosmos Hub AMM applies a strong philosophy of inclusiveness for users from different blockchains with its prime utility of inter-blockchain communication.
+- To achieve heterogeneous blockchain adoption, the liquidity module provides convenient entry points for external users to come in and use the services that are provided by the Cosmos Hub.
+- The liquidity module does not anticipate specific assets, such as ATOM, into the user workflow. Data shows that unnatural anticipation of native coin at unavoidable parts of the process results in poor user attraction.
 
 ## Key features
 
-**Lending
+![new-amm-model](doc/img/new-amm-model.png)
 
-Lending enables an asset holder to have stable income from interest where borrowers submit and liquidations that borrowers risk.
-Lenders have deposit pool token based on the asset they deposit for collateral(e.g. dATOM, dUST). If a borrower's position is liquidated, part of the collateral can go to dex pair for arbitrage, and part of it is sent to deposit pool where lenders can claim through pro-rata distribution based on pool token
+**Combination of traditional orderbook-based model and new AMM model**
 
-**Borrowing
+- With multiple advantages over order book-based models, the liquidity module combines a batch-based order book matching algorithm with AMM to create enriched utilities for more potential users.
+- The liquidity module redefines the concept of a “swap order” in AMM as a “limit order with a short lifetime” in an order book-based exchange. By combining these concepts from two different models as one united model, the function supports both ways to participate in trading and liquidity-providing activities.
+- Limit order options are not supported in the first version of the liquidity module, but the base structure of the codebase anticipates and supports feature expansion.
+- Advantages of the combined model
+    - More freedom on ways to provide liquidity, planned expansion for limit orders
+    - The combination of pool liquidity and limit order liquidity provide users with a more enriched trading environment
 
-Borrowing enables an asset holder to have leveraged access to other crypto assets without swapping, and this can enable them to have leverage profit.
-For example, if one collaterizes UST and get ATOM, and if ATOM price goes up, he or she can sell atom and then turn profit into collateral with interest rate and still have the collateral.
-
+For details, see the [Liquidity Module Light Paper](doc/LiquidityModuleLightPaper_EN.pdf).
 
 ## Installation
 
